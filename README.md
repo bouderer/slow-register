@@ -30,6 +30,7 @@ npm install
 {
   "ddgToken": "your_ddg_token_here",
   "mailInboxUrl": "https://your-mail-inbox-url.com",
+  "proxyUrl": "http://127.0.0.1:7890",
   "oauthClientId": "app_EMoamEEZ73f0CkXaXp7hrann",
   "oauthRedirectPort": 1455
 }
@@ -41,8 +42,31 @@ npm install
 |------|------|------|
 | `ddgToken` | DDG 邮箱别名服务的 Bearer Token | ✅ |
 | `mailInboxUrl` | 可被 Browserbase 访问的邮箱收件箱 URL（带 JWT） | ✅ |
+| `proxyUrl` | 出站代理地址，支持 HTTP/HTTPS 代理；会同时用于接口请求和 Browserbase WebSocket 连接 | ❌ 不需要可留空 |
 | `oauthClientId` | OAuth 客户端 ID | ❌ 默认即可 |
 | `oauthRedirectPort` | 本地回调端口 | ❌ 默认 1455 （其实根本不会使用） |
+
+### Proxy 设置
+
+如果你的网络环境需要代理，可以在 `config.json` 中添加 `proxyUrl`：
+
+```json
+{
+  "proxyUrl": "http://127.0.0.1:7890"
+}
+```
+
+常见写法示例：
+
+- `http://127.0.0.1:7890`
+- `http://username:password@127.0.0.1:7890`
+- `https://127.0.0.1:8443`
+
+说明：
+
+- `proxyUrl` 留空或不填写时，程序会直接连接，不走代理。
+- 该配置会作用于 DDG、OAuth、Browserbase API 请求，以及 Browserbase 的 WebSocket 连接。
+- 如果你使用的是 Clash、v2rayN、Nekoray 一类本地代理，通常填本机 HTTP 代理端口即可。
 
 ---
 
